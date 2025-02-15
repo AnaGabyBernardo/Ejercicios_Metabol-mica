@@ -1,0 +1,34 @@
+#Llamado de datos
+#Diseñó: Ana Gabriela Bernardo
+
+#install.packages("pacman") #Para instalar y correr funciones
+#agrego el # después de instalarlo para que cada que pique enter no se reinstale
+#Para instalar paquetes
+library("pacman") #para instalar paquetes
+
+p_load("readr") #función dentro del paquete pacman para llamar otros paquetes y si no están instalados, los instala
+
+Datos_PCR <- read.csv(file="https://raw.githubusercontent.com/ManuelLaraMVZ/Transcript-mica/refs/heads/main/Resultados_tiempo_real.csv")
+head(Datos_PCR)
+View(Datos_PCR)
+p_load("dplyr") #Para facilitar el manejo de datos
+Tabla_filtrada <- Datos_PCR %>% #Command+shift+,+M
+  select("Ciclos","Cb")
+View(Tabla_filtrada)
+head(Tabla_filtrada)
+Tabla_filtrada
+p_load(ggplot2) #Para graficar
+grafica_1 <- ggplot(Tabla_filtrada, #base de datos
+                    aes(x=Ciclos, #aes: aesthetic, lo que quiero graficar
+                        y=Cb))+
+  geom_dotplot()
+grafica_1
+
+ggplot(Tabla_filtrada, aes(x = Ciclos, y = Cb)) +
+  geom_line(color = "#f3aee7") +      
+  geom_point(color = "#9ddabd") + 
+  labs(title = "Gráfica de Ciclos vs Fluoresencia",
+       subtitle= "Cre: Ana Gabriela Bernardo",
+       caption= "Muestras de cerebelo",
+       x = "Ciclos",
+       y = "Fluoresencia") + #labels
